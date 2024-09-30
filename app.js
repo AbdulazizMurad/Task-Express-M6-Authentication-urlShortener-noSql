@@ -6,7 +6,7 @@ const notFoundHandler = require("./middlewares/notFoundHandler");
 const errorHandler = require("./middlewares/errorHandler");
 const dotenv = require("dotenv");
 const passport = require("passport");
-const { localStrategy } = require("./middlewares/passport");
+const { localStrategy, JwtStrategy } = require("./middlewares/passport");
 dotenv.config();
 const PORT = process.env.PORT;
 
@@ -16,6 +16,7 @@ connectDb();
 app.use(express.json());
 app.use(passport.initialize());
 passport.use("local", localStrategy);
+passport.use("jwt", JwtStrategy);
 app.use("/urls", urlRoutes);
 app.use(userRoutes);
 
